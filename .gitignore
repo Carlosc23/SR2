@@ -110,3 +110,6 @@ venv.bak/
 *.iml
 out
 gen
+
+# Ignore .bmp
+*.bmp
