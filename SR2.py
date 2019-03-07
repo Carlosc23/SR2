@@ -5,7 +5,6 @@
 from SR1 import SoftwareRender
 
 x = SoftwareRender('out.bmp')
-
 x.glCreateWindow(600, 600)
 x.glViewPort(0, 0, 599, 599)
 x.glClear()

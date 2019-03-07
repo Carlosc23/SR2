@@ -259,18 +259,18 @@ class Bitmap(object):
         realY = realY_vp_size  + self.vpY
         return realY
 
-    def line(self, x1, y1, x2, y2):
+    def line(self, xo, yo, xf, yf):
 
         print("**********************")
-        print(x1, "valor x1")
-        print(y1, "valor y1 ")
-        print(x2, "valor x2")
-        print(y2, "valor y2")
+        print(xo, "valor x1")
+        print(yo, "valor y1 ")
+        print(xf, "valor x2")
+        print(yf, "valor y2")
 
-        x1 = math.floor(self.transform_x(x1))
-        x2 = math.floor(self.transform_x(x2))
-        y1 = math.floor(self.transform_y(y1))
-        y2 = math.floor(self.transform_y(y2))
+        x1 = math.floor(self.transform_x(xo))
+        x2 = math.floor(self.transform_x(xf))
+        y1 = math.floor(self.transform_y(yo))
+        y2 = math.floor(self.transform_y(yf))
 
         dy = abs(y2 - y1)
         dx = abs(x2 - x1)
