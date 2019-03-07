@@ -1,6 +1,7 @@
 # Carlos Calderon, 15219
 # Bitmap.py
 # Inspired in the class render made in Graphics Course C3044
+import math
 import random
 import struct
 import sys
@@ -42,7 +43,7 @@ class Bitmap(object):
         self.r = 255
         self.g = 0
         self.b = 0
-        self.pointSize = 5
+        self.pointSize = 30
         self.vr = 255
         self.vg = 200
         self.vb = 200
@@ -100,7 +101,8 @@ class Bitmap(object):
         :param y: relative vertical coord of the point
         :return:
         """
-
+        print("pointSize")
+        print(self.pointSize)
         if self.vpHeight != 0 and self.vpWidth != 0:
             xx = x * ((self.vpWidth - self.pointSize) / 2)
             yy = y * ((self.vpHeight - self.pointSize) / 2)
@@ -244,6 +246,61 @@ class Bitmap(object):
         for cordX in range(size):
             for cordY in range(size):
                 self.point(cordX + x, cordY + y)
-# r = Bitmap(600, 400)
-# r.write('out.bmp')
-# r.point(100, 200, color(255, 255, 0))
+
+    def transform_x(self, x):
+        dx = x * (self.vpWidth / 2)
+        realX_vp_size = (self.vpWidth / 2) + dx
+        realX = realX_vp_size  + self.vpX
+        return realX
+
+    def transform_y(self, y):
+        dy = y * (self.vpHeight / 2)
+        realY_vp_size = (self.vpHeight / 2) + dy
+        realY = realY_vp_size  + self.vpY
+        return realY
+
+    def line(self, x1, y1, x2, y2):
+
+        print("**********************")
+        print(x1, "valor x1")
+        print(y1, "valor y1 ")
+        print(x2, "valor x2")
+        print(y2, "valor y2")
+
+        x1 = math.floor(self.transform_x(x1))
+        x2 = math.floor(self.transform_x(x2))
+        y1 = math.floor(self.transform_y(y1))
+        y2 = math.floor(self.transform_y(y2))
+
+        dy = abs(y2 - y1)
+        dx = abs(x2 - x1)
+        if dx == 0:
+            print("Undefined slope")
+            sys.exit()
+        steep = dy > dx
+
+        if steep:
+            x1, y1 = y1, x1
+            x2, y2 = y2, x2
+
+        if x1 > x2:
+            x1, x2 = x2, x1
+            y1, y2 = y2, y1
+
+        dy = abs(y2 - y1)
+        dx = abs(x2 - x1)
+
+        offset = 0 * 2 * dx
+        threshold = 0.5 * 2 * dx
+
+        y = y1
+        for x in range(x1, x2 + 1):
+            if steep:
+                self.point(y, x)
+            else:
+                self.point(x, y)
+
+            offset += dy * 2
+            if offset >= threshold:
+                y += 1 if y1 < y2 else -1
+                threshold += 1 * 2 * dx
