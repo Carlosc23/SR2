@@ -259,7 +259,7 @@ class Bitmap(object):
         realY = realY_vp_size  + self.vpY
         return realY
 
-    def line(self, xo, yo, xf, yf):
+    def glLine(self, xo, yo, xf, yf):
 
         print("**********************")
         print(xo, "valor x1")

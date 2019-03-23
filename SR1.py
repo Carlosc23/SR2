@@ -124,5 +124,5 @@ class SoftwareRender(object):
     def sky(self, stars):
         self.window.sky(stars)
 
-    def line_brese(self, xo, yo, xf, yf):
-        self.window.line(xo, yo, xf, yf)
+    def glLine(self, xo, yo, xf, yf):
+        self.window.glLine(xo, yo, xf, yf)
